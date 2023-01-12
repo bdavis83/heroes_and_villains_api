@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "ac285ec8-cf63-4fd8-811f-85518ee0da03",
+		"name": "Heroes & Villains",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25185573"
+	},
+	"item": [
+		{
+			"name": "GET super by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/supers/4/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"supers",
+						"4",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST new super to db",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Spiderman\",\r\n    \"alter_ego\": \"Peter Parker\",\r\n    \"primary_ability\": \"Shoots webs\",\r\n    \"secondary_ability\": \"Spider sense\",\r\n    \"catchphrase\": \"My spidey senses are tingling\",\r\n    \"super_type\": \"hero\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/supers/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"supers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE existing super in db",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "        {\r\n            \"id\": 1,\r\n            \"name\": \"Superman\",\r\n            \"alter_ego\": \"Clark Kent\",\r\n            \"primary_ability\": \"Flight\",\r\n            \"secondary_ability\": \"X-ray vision\",\r\n            \"catchphrase\": \"up up and away!\",\r\n            \"super_type\": {\r\n                \"id\": 1,\r\n                \"type\": \"Hero\"\r\n            }\r\n        }\r\n    ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/supers/1/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"supers",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE super",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/supers/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"supers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all supers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/supers/?type=",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"supers",
+						""
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
