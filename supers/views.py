@@ -27,11 +27,14 @@ def supers_list (request):
          'hero': hero_serializer.data, 
          'villain': villain_serializer.data
       }
-      if type:
-         supers_var = supers_var.filter(super_type__type = type)
-      
-
-      return Response (custom_response_dict)
+      if type == "hero":
+         supers_var = hero
+         return Response (hero_serializer.data)
+      elif type == "villain":
+         supers_var = villain
+         return Response (villain_serializer.data)
+      else:
+         return Response (custom_response_dict)
 
    elif request.method == 'POST':
     serializer = SuperSerializer (data=request.data)
@@ -56,21 +59,6 @@ def supers_detail (request, pk):
       supers_var.delete()
       return Response (status=status.HTTP_204_NO_CONTENT)
 
-@api_view (['GET'])
-def supers_and_super_types(request):
-   
-   supers = Supers.objects.all()
-   super_types = SuperType.objects.all ()
-
-   super_serializer = SuperSerializer (supers, many=True)
-   super_types_serializer = SuperTypeSerializer (super_types, many=True)
-
-   custom_response_dict = {
-      'supers': super_serializer.data,
-      'supertypes': super_types_serializer.data
-   }
-
-   return Response(custom_response_dict)
 
       
 
