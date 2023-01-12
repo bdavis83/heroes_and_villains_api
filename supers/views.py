@@ -5,14 +5,33 @@ from rest_framework import status
 from .serializers import SuperSerializer
 from .models import Supers
 from django.shortcuts import get_object_or_404
+from super_types.models import SuperType
+from super_types.serializer import SuperTypeSerializer
 
 # Create your views here.
 @api_view (['GET', 'POST'])
 def supers_list (request):
    if request.method == 'GET':
-    supers_var = Supers.objects.all()
-    serializer = SuperSerializer (supers_var, many = True)
-    return Response (serializer.data)
+
+      type = request.query_params.get('type')
+
+      supers_var = Supers.objects.all()
+      super_types = SuperType.objects.all()
+      super_serializer = SuperSerializer (supers_var, many = True)
+      super_type_serializer = SuperTypeSerializer (super_types, many=True)
+      hero = Supers.objects.filter(super_type__type = 'hero')
+      hero_serializer = SuperSerializer(hero, many=True)
+      villain = Supers.objects.filter(super_type__type='villain')
+      villain_serializer = SuperSerializer(villain, many=True)
+      custom_response_dict = {
+         'hero': hero_serializer.data, 
+         'villain': villain_serializer.data
+      }
+      if type:
+         supers_var = supers_var.filter(super_type__type = type)
+      
+
+      return Response (custom_response_dict)
 
    elif request.method == 'POST':
     serializer = SuperSerializer (data=request.data)
@@ -36,6 +55,22 @@ def supers_detail (request, pk):
    elif request.method == 'DELETE':
       supers_var.delete()
       return Response (status=status.HTTP_204_NO_CONTENT)
+
+@api_view (['GET'])
+def supers_and_super_types(request):
+   
+   supers = Supers.objects.all()
+   super_types = SuperType.objects.all ()
+
+   super_serializer = SuperSerializer (supers, many=True)
+   super_types_serializer = SuperTypeSerializer (super_types, many=True)
+
+   custom_response_dict = {
+      'supers': super_serializer.data,
+      'supertypes': super_types_serializer.data
+   }
+
+   return Response(custom_response_dict)
 
       
 
